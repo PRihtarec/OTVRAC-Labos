@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tablica podataka</title>
+  <link rel = "stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1>Skup bolesti</h1>
+  
+
+<div>
+  <label for="filter-select">Odaberi atribut za filtriranje:</label>
+  <select id="filter-select">
+    <option value="all">Svi atributi</option>
+    <option value="naziv_bolesti">Naziv bolesti</option>
+    <option value="simptomi">Simptomi</option>
+    <option value="tip_tretmana">Tip tretmana</option>
+    <option value="faktori_rizika">Faktori rizika</option>
+    <option value="razina_opasnosti">Razina opasnosti</option>
+    <option value="uobicajeni_lijekovi">Uobičajeni lijekovi</option>
+    <option value="dijagnosticki_testovi">Dijagnostički testovi</option>
+    <option value="genetska_predispozicija">Genetska predispozicija</option>
+    <option value="brzina_progresije_bolesti">Brzina progresije bolesti</option>
+    <option value="tipicna_starost_dijagnoze">Tipična starost dijagnoze</option>
+  </select>
+</div>
+
+<div>
+  <label for="filter-text">Filtriraj tekstom:</label>
+  <input type="text" id="filter-text" placeholder="Upišite za filtriranje...">
+</div>
+
+
+<div>
+  <button id="download-csv">Preuzmi CSV</button>
+  <button id="download-json">Preuzmi JSON</button>
+</div>
+
+
+<table id="data-table">
+  <thead>
+    <tr>
+      <th>Naziv bolesti</th>
+      <th>Simptomi</th>
+      <th>Tip tretmana</th>
+      <th>Faktori rizika</th>
+      <th>Razina opasnosti</th>
+      <th>Uobičajeni lijekovi</th>
+      <th>Dijagnostički testovi</th>
+      <th>Genetska predispozicija</th>
+      <th>Brzina progresije bolesti</th>
+      <th>Tipična starost dijagnoze</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>

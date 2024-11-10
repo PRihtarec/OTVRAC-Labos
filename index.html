@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Skup podataka za bolesti</title>
+    <meta name="description"
+        content="Ovaj skup podataka sadrži informacije o 10 bolesti i pripadajućim simptomima te raznim podacima za svaku bolest.
+     Podaci su strukturirani u obliku relacijske baze podataka s tri glavne tablice: bolesti, simptomi te bolest_simptom koja povezuje bolesti i simptome." />
+    <meta name="author" content="Petar Rihtarec" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="indexbody">
+
+    <h1>Skup podataka za bolesti</h1>
+    <p>Ovaj skup podataka sadrži informacije o 10 bolesti i pripadajućim simptomima te raznim podacima za svaku bolest.
+        Podaci su strukturirani u obliku relacijske baze podataka s tri glavne tablice: bolesti, simptomi te
+        bolest_simptom koja povezuje bolesti i simptome.</p>
+        <hr>
+    <h2>Opis atributa:</h2>
+    <p>
+        bolest_id: Jedinstveni identifikator za svaku bolest</p>
+    <p>naziv_bolesti: Naziv bolesti</p>
+    <p>tipicna_starost_dijagnoze: Tipična dob dijagnosticiranja bolesti</p>
+    <p>genetska_predispozicija: Genetska predispozicija povezana s bolešću (niska, srednja, visoka)</p>
+    <p>razina_opasnosti: Razina ozbiljnosti bolesti (blaga, srednja, teška)</p>
+    <p>faktori_rizika: Rizični čimbenici povezani s bolešću</p>
+    <p>uobicajeni_lijekovi: Uobičajeni lijekovi propisani za liječenje bolesti</p>
+    <p>brzina_progresije_bolesti: Stopa progresije bolesti</p>
+    <p>dijagnosticki_testovi: Uobičajeni dijagnostički testovi za potvrdu bolesti</p>
+    <p>tip_tretmana: Vrsta liječenja (medikamentozno, promjena načina života, terapija)</p>
+    <hr>
+    <p>Dostupni formati: JSON i CSV</p>
+    <p>Broj zapisa: Skup podataka sadrži 10 različitih bolesti i 17 različitih simptoma.</p>
+    <p>Veličina podataka: 6KB u JSON-u, 7KB u CSV-u</p>
+    </p>
+    <a href="bolesti.csv" download>Download CSV</a>
+    <br />
+    <a href="bolesti.json" download>Download JSON</a>
+    <br />
+    <a href="datatable.html">View Data Table</a>
+</body>
+</html>

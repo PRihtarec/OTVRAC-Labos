@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://or.fer.unizg.hr/bolesti.json",
+    "type": "array",
+    "title": "Skup bolesti",
+    "description": "Skup podataka o bolestima za otvoreno računarstvo.",
+    "items": {
+      "type": "object",
+      "title": "Bolest",
+      "description": "Objekt koji sadrži informacije o jednoj bolesti.",
+      "required": [
+        "bolest_id",
+        "naziv_bolesti",
+        "simptomi",
+        "tip_tretmana",
+        "faktori_rizika",
+        "razina_opasnosti",
+        "uobicajeni_lijekovi",
+        "dijagnosticki_testovi",
+        "genetska_predispozicija",
+        "brzina_progresije_bolesti",
+        "tipicna_starost_dijagnoze"
+      ],
+      "properties": {
+        "bolest_id": {
+          "type": "integer",
+          "title": "ID bolesti",
+          "description": "Jedinstveni identifikator za svaku bolest"
+        },
+        "naziv_bolesti": {
+          "type": "string",
+          "title": "Naziv bolesti",
+          "description": "Naziv bolesti."
+        },
+        "simptomi": {
+          "type": "array",
+          "title": "Simptomi",
+          "description": "Lista simptoma povezanih s bolešću",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tip_tretmana": {
+          "type": "string",
+          "title": "Tip tretmana",
+          "description": "Vrsta liječenja (medikamentozno, promjena načina života, terapija)"
+        },
+        "faktori_rizika": {
+          "type": "string",
+          "title": "Faktori rizika",
+          "description": "Rizični čimbenici povezani s bolešću"
+        },
+        "razina_opasnosti": {
+          "type": "string",
+          "title": "Razina opasnosti",
+          "description": "Razina ozbiljnosti bolesti (blaga, srednja, teška)"
+        },
+        "uobicajeni_lijekovi": {
+          "type": "string",
+          "title": "Uobičajeni lijekovi",
+          "description": "Uobičajeni lijekovi propisani za liječenje bolesti"
+        },
+        "dijagnosticki_testovi": {
+          "type": "string",
+          "title": "Dijagnostički testovi",
+          "description": "Uobičajeni dijagnostički testovi za potvrdu bolesti"
+        },
+        "genetska_predispozicija": {
+          "type": "string",
+          "title": "Genetska predispozicija",
+          "description": "Genetska predispozicija povezana s bolešću (niska, srednja, visoka)"
+        },
+        "brzina_progresije_bolesti": {
+          "type": "string",
+          "title": "Brzina progresije bolesti",
+          "description": "Stopa progresije bolesti"
+        },
+        "tipicna_starost_dijagnoze": {
+          "type": "string",
+          "title": "Tipična starost dijagnoze",
+          "description": "Tipična dob dijagnosticiranja bolesti"
+        }
+      }
+    }
+  }
