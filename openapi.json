@@ -1,0 +1,166 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Bolesti",
+      "version": "1.0"
+    },
+    "paths": {
+      "/api/bolesti": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Popis svih bolesti"
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti."
+            }
+          }
+        },
+        "post": {
+          "responses": {
+            "201": {
+              "description": "Bolest uspjesno dodana."
+            },
+            "400": {
+              "description": "Greska pri dodavanju bolesti."
+            }
+          }
+        }
+      },
+      "/api/bolesti/{id}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Detalji o bolesti"
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti po ID-u."
+            }
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Detalji o bolesti"
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti po ID-u."
+            }
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Bolest uspjesno obrisana."
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri brisanju bolesti."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      },
+      "/api/bolesti/tip/{tip}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Bolesti sa zadanim tipom tretmana"
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti po tipu tretmana."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tip",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "/api/bolesti/genetska/{predispozicija}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Bolesti sa zadanom genetskom dispozicijom."
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti po genetskoj predispoziciji."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "predispozicija",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "/api/bolesti/naziv/{naziv}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Bolesti sa zadanim nazivom"
+            },
+            "404": {
+              "description": "Bolest nije nadena."
+            },
+            "500": {
+              "description": "Greska pri dohvacanju bolesti po nazivu"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      },
+      "/openapi": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Uspjesno dohvacen dokument openapi.json"
+            }
+          }
+        }
+      }
+    }
+  }

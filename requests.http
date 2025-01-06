@@ -1,0 +1,52 @@
+###
+GET http://localhost:3000/api/bolesti
+###
+GET http://localhost:3000/api/bolesti/1
+###
+GET http://localhost:3000/api/bolesti/tip/Lijekovi
+###
+GET http://localhost:3000/api/bolesti/genetska/Visoka
+###
+GET http://localhost:3000/api/bolesti/naziv/Astmaa
+
+
+
+###
+PUT http://localhost:3000/api/bolesti/1
+Content-Type: application/json
+
+{
+    "naziv_bolesti": "prehlada",
+    "tip_tretmana": "tip",
+    "faktori_rizika": "pusenje",
+    "razina_opasnosti": "velika",
+    "uobicajeni_lijekovi": "test",
+    "dijagnosticki_testovi": "dt",
+    "genetska_predispozicija": "nema",
+    "brzina_progresije_bolesti": "brzo",
+    "tipicna_starost_dijagnoze": "svaka"
+}
+
+###
+POST http://localhost:3000/api/bolesti
+Content-Type: application/json
+
+{
+    "naziv_bolesti": "gripa",
+    "tip_tretmana": "tip",
+    "faktori_rizika": "pusenje",
+    "razina_opasnosti": "velika",
+    "uobicajeni_lijekovi": "test",
+    "dijagnosticki_testovi": "dt",
+    "genetska_predispozicija": "nema",
+    "brzina_progresije_bolesti": "brzo",
+    "tipicna_starost_dijagnoze": "svaka"
+}
+###
+GET http://localhost:3000/api/bolesti/11
+###
+DELETE http://localhost:3000/api/bolesti/11
+###
+PATCH http://localhost:3000/api/bolesti/11
+###
+GET http://localhost:3000/api/openapi

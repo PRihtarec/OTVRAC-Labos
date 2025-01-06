@@ -1,13 +1,21 @@
 let tableData = [];
 
 
-fetch('/api/data')
+fetch('/api/bolesti')
     .then(response => response.json())
-    .then(data => {
-        tableData = data;
-        renderTable(tableData);
-    });
+    .then(responseData => {
+      
+        tableData = responseData.data;
 
+       
+      //  console.log(JSON.stringify(tableData));
+    //    console.log(JSON.stringify(tableData, null, 2));
+
+        renderTable(tableData);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
 
 function renderTable(data) {
     const tableBody = document.querySelector('#data-table tbody');
