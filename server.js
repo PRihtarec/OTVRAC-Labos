@@ -1,9 +1,37 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
 const app = express();
 const port = 3000;
+const { auth } = require('express-openid-connect');
+const { Parser } = require('json2csv');
 
+const config = {
+  authRequired: false,
+  auth0Logout: false,
+  secret: 'a long, randomly-generated string stored in env',
+  baseURL: 'http://localhost:3000',
+  clientID: 'fnRoTZSICdPVbzzrP3ogtixwWBmBvvy4',
+  issuerBaseURL: 'https://dev-yl6hu6xq2472y1wi.us.auth0.com'
+};
+
+const { requiresAuth } = require('express-openid-connect');
+
+
+
+
+app.use(auth(config));
+
+
+app.get("/", (req, res) => 
+  {
+      res.sendFile(req.oidc.isAuthenticated() ? "indexLoggedin.html": "index.html", { root: path.join(__dirname, 'public'),});
+  });
+
+  app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+  });
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
@@ -28,6 +56,110 @@ const sendResponse = (res, statusCode, responseObj) => {
   res.setHeader('Content-Type', 'application/json');
   res.status(statusCode).send(JSON.stringify(responseObj));
 };
+
+app.get('/refresh', requiresAuth(), async (req, res) => {
+  try {
+    const result = await client.query(`
+      SELECT 
+        b.bolest_id, 
+        b.naziv_bolesti, 
+        b.tip_tretmana, 
+        b.faktori_rizika, 
+        b.razina_opasnosti, 
+        b.uobicajeni_lijekovi, 
+        b.dijagnosticki_testovi, 
+        b.genetska_predispozicija, 
+        b.brzina_progresije_bolesti, 
+        b.tipicna_starost_dijagnoze,
+        array_agg(s.simptom) AS simptomi
+      FROM bolesti b
+      LEFT JOIN 
+        bolest_simptom bs ON b.bolest_id = bs.bolest_id
+      LEFT JOIN 
+        simptomi s ON bs.simptom_id = s.simptom_id
+      GROUP BY b.bolest_id
+    `);
+
+    const data = result.rows;
+
+    const jsonFilePath = path.join(__dirname, 'public', 'bolesti.json');
+    const csvFilePath = path.join(__dirname, 'public','bolesti.csv');
+
+    // Save JSON file with aggregated symptoms
+    fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2), 'utf8');
+
+    // Prepare CSV file with one row per symptom
+    const header = [
+      'Bolest ID',
+      'Naziv bolesti',
+      'Vrsta tretmana',
+      'Faktori rizika',
+      'Razina opasnosti',
+      'Uobičajeni lijekovi',
+      'Dijagnostički testovi',
+      'Genetska predispozicija',
+      'Brzina progresije bolesti',
+      'Tipična starost dijagnoze',
+      'Simptom'
+    ];
+
+    const escapeCsv = (cell) => {
+      if (cell == null) return ''; // Handle null/undefined
+      const str = cell.toString();
+      return str.includes(',') || str.includes('"') || str.includes('\n')
+        ? `"${str.replace(/"/g, '""')}"`
+        : str;
+    };
+
+    const rows = [header.map(escapeCsv).join(',')];
+    data.forEach((row) => {
+      if (row.simptomi && row.simptomi.length > 0) {
+        row.simptomi.forEach((simptom) => {
+          rows.push([
+            escapeCsv(row.bolest_id),
+            escapeCsv(row.naziv_bolesti),
+            escapeCsv(row.tip_tretmana),
+            escapeCsv(row.faktori_rizika),
+            escapeCsv(row.razina_opasnosti),
+            escapeCsv(row.uobicajeni_lijekovi),
+            escapeCsv(row.dijagnosticki_testovi),
+            escapeCsv(row.genetska_predispozicija),
+            escapeCsv(row.brzina_progresije_bolesti),
+            escapeCsv(row.tipicna_starost_dijagnoze),
+            escapeCsv(simptom)
+          ].join(','));
+        });
+      } else {
+        rows.push([
+          escapeCsv(row.bolest_id),
+          escapeCsv(row.naziv_bolesti),
+          escapeCsv(row.tip_tretmana),
+          escapeCsv(row.faktori_rizika),
+          escapeCsv(row.razina_opasnosti),
+          escapeCsv(row.uobicajeni_lijekovi),
+          escapeCsv(row.dijagnosticki_testovi),
+          escapeCsv(row.genetska_predispozicija),
+          escapeCsv(row.brzina_progresije_bolesti),
+          escapeCsv(row.tipicna_starost_dijagnoze),
+          '' // No symptoms
+        ].join(','));
+      }
+    });
+
+    const csvContent = rows.join('\n');
+    fs.writeFileSync(csvFilePath, csvContent, 'utf8');
+
+    // Redirect back to the home page after successful file generation
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    sendResponse(res, 500, createResponse('greska', null, 'Greska pri generiranju datoteka.'));
+  }
+});
+
+
+
+
 
 app.get('/api/bolesti', async (req, res) => {
   try {
