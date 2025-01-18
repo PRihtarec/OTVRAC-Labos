@@ -21,8 +21,9 @@ const { requiresAuth } = require('express-openid-connect');
 
 
 
+app.set('view engine', 'ejs');
 app.use(auth(config));
-
+app.set('views', path.join(__dirname, 'public'));
 
 app.get("/", (req, res) => 
   {
@@ -30,7 +31,8 @@ app.get("/", (req, res) =>
   });
 
   app.get('/profile', requiresAuth(), (req, res) => {
-    res.send(JSON.stringify(req.oidc.user));
+    const user = req.oidc.user;
+    res.render('profile', { user });
   });
 const client = new Client({
   user: 'postgres',

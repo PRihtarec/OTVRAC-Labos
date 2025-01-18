@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .profile-container h1 {
+            text-align: center;
+        }
+        .profile-picture {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-picture img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 3px solid #ddd;
+        }
+        .profile-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .profile-container table th, .profile-container table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-container table th {
+            background-color: #f2f2f2;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-picture">
+            <img src="<%= user.picture %>" alt="User Profile Picture">
+        </div>
+        <table>
+            <% for (const [key, value] of Object.entries(user)) { %>
+                <% if (key !== 'picture') { %>
+                    <tr>
+                        <th><%= key %></th>
+                        <td><%= value %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        </table>
+        <div class="back-link">
+            <a href="/">Natrag</a>
+        </div>
+    </div>
+</body>
+</html>
